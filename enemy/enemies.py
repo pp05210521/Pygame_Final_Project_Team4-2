@@ -11,16 +11,17 @@ ENEMY_IMAGE_1 = pygame.image.load(os.path.join(IMAGE_PATH, "virus1.jpg"))
 ENEMY_IMAGE_2 = pygame.image.load(os.path.join(IMAGE_PATH, "virus3.png"))
 ENEMY_IMAGE_3 = pygame.image.load(os.path.join(IMAGE_PATH, "virus4.png"))
 ENEMY_IMAGE_4 = pygame.image.load(os.path.join(IMAGE_PATH, "virus5.png"))
-
+ENEMY_IMAGE_5 = pygame.image.load(os.path.join(IMAGE_PATH, "winnieboss.png"))
 
 class Enemy:
-    def __init__(self):
-        self.en_type = random.randint(1, 4)
+    def __init__(self, checkpoint):
+        self.point = checkpoint
+        self.en_type = self.type_en(self.point)                             
         self.image = self.enemy_image(self.en_type)
-        self.health = self.enemy_hp_maxhp(self.en_type)
-        self.max_health = self.enemy_hp_maxhp(self.en_type)
-        self.power = self.enemy_power(self.en_type)
-        self.stride = self.move_speed(self.en_type)
+        self.health = self.enemy_hp_maxhp(self.en_type, self.point)
+        self.max_health = self.health
+        self.power = self.enemy_power(self.en_type, self.point)
+        self.stride = self.move_speed(self.en_type, self.point)
         self.path = en_PATH
         self.move_count = 0
         self.path_index = 0
@@ -30,6 +31,14 @@ class Enemy:
         self.attack_max_count = self.attack_max_cd(self.en_type)
         self.range = self.attack_range(self.en_type)
         self.attack_music = pygame.mixer.Sound(os.path.join(SOUND_PATH,"short_punch1.mp3"))
+        self.attack_light = 0
+        
+        
+    def type_en(self, point):
+        if point == 1 or point == 2:
+            return random.randint(1, 4)
+        elif point == 3:
+            return 5
 
     def move(self):
         x1, y1 = self.path[self.path_index]
@@ -61,61 +70,108 @@ class Enemy:
             return pygame.transform.scale(ENEMY_IMAGE_3, (100, 100))
         elif(entype == 4):
             return pygame.transform.scale(ENEMY_IMAGE_4, (120, 120))
+        elif(entype == 5):
+            return pygame.transform.scale(ENEMY_IMAGE_5, (250, 250))
         
     # 最大血量
-    def enemy_hp_maxhp(self, entype):
+    def enemy_hp_maxhp(self, entype, point):     
         if(entype == 1):
-            return 15
+            entype_one_hp = [15, 20]
+            if(point == 1):
+                return entype_one_hp[0]
+            elif(point == 2):
+                return entype_one_hp[1]
         elif(entype == 2):
-            return 10
+            entype_two_hp = [10, 15]
+            if(point == 1):
+                return entype_two_hp[0]
+            elif(point == 2):
+                return entype_two_hp[1]
         elif(entype == 3):
-            return 14
+            entype_three_hp = [14, 18]
+            if(point == 1):
+                return entype_three_hp[0]
+            elif(point == 2):
+                return entype_three_hp[1]
         elif(entype == 4):
             return 50
+        elif(entype == 5):
+            return 250
         
     # 攻擊力    
-    def enemy_power(self, entype):
+    def enemy_power(self, entype, point):
         if(entype == 1):
-            return 3
+            entype_one_power = [3, 5]
+            if(point == 1):
+                return entype_one_power[0]
+            elif(point == 2):
+                return entype_one_power[1]
         elif(entype == 2):
-            return 6
+            entype_two_power = [6, 8]
+            if(point == 1):
+                return entype_two_power[0]
+            elif(point == 2):
+                return entype_two_power[1]
         elif(entype == 3):
-            return 2
+            entype_three_power = [2, 4]
+            if(point == 1):
+                return entype_three_power[0]
+            elif(point == 2):
+                return entype_three_power[1]
         elif(entype == 4):
-            return 100
+            return 50
+        elif(entype == 5):
+            return 999
         
     # 移動速度    
-    def move_speed(self, entype):
+    def move_speed(self, entype, point):
         if(entype == 1):
-            return 1   
+            entype_one_speed = [1, 1.2]
+            if(point == 1):
+                return entype_one_speed[0]
+            elif(point == 2):
+                return entype_one_speed[1]
         elif(entype == 2):
-            return 0.6
+            entype_two_speed = [0.6, 0.8]
+            if(point == 1):
+                return entype_two_speed[0]
+            elif(point == 2):
+                return entype_two_speed[1]
         elif(entype == 3):
-            return 1.5
+            entype_three_speed = [1.5, 1.8]
+            if(point == 1):
+                return entype_three_speed[0]
+            elif(point == 2):
+                return entype_three_speed[1]
         elif(entype == 4):
             return 0.2
+        elif(entype == 5):
+            return 0.15
         
     # 攻擊最大冷卻    
     def attack_max_cd(self, entype):
         if(entype == 1):
             return 120
         elif(entype == 2):
-            return 250
+            return 240
         elif(entype == 3):
             return 180
         elif(entype == 4):
-            return 640
+            return 600
+        elif(entype == 5):
+            return 150
         
     # 要不要攻擊
-    def attack(self):
+    def attack(self,model):
         if(self.attack_count < self.attack_max_count):
             self.attack_count += 1
             return False
         else:
-            self.attack_count = 0
-            self.attack_music.set_volume(0.5)
-            pygame.mixer.Channel(1).play(self.attack_music)
-            return True
+            if model.mytower_hp > 0 and model.entower_hp > 0:
+                self.attack_count = 0
+                self.attack_music.set_volume(0.5)
+                pygame.mixer.Channel(1).play(self.attack_music)
+                return True
    
     # 攻擊範圍
     def attack_range(self, entype):
@@ -127,14 +183,17 @@ class Enemy:
             return 60
         elif(entype == 4):
             return 60
+        elif(entype == 5):
+            return 60
         
         
 class EnemyGroup:
-    def __init__(self):
+    def __init__(self, checkpoint):
         self.campaign_count = 0
         self.campaign_max_count = 60   
         self.__reserved_members = []
         self.expedition = []
+        self.point = checkpoint
     
     # 判斷英雄有沒有在敵人的攻擊範圍裡
     def en_to_hero_range(self, hero, enemy):
@@ -162,22 +221,30 @@ class EnemyGroup:
                 model.money += 25
                 self.retreat(en)
             if self.en_to_base_range(en):
-                if(en.attack()) and model.mytower_hp > 0:
+                if en.attack(model) and model.mytower_hp > 0:
                     model.mytower_hp -= en.power
-                elif model.entower_hp < 0:
+                    en.attack_light = 1
+                elif model.mytower_hp <= 0:
                     model.entower_hp = 0
+                    en.attack_light = 0
+                else:
+                    en.attack_light = 0
             elif model.he.expedition:
                 for he in model.he.expedition:
                     if self.en_to_hero_range(he, en):
-                        if(en.attack()):
+                        if(en.attack(model)):
                             he.health -= en.power
+                            en.attack_light = 1
                             break
                         else:
+                            en.attack_light = 0
                             break
                     else:
                         en.move()
+                        en.attack_light = 0
                         break
             else:
+                en.attack_light = 0
                 en.move()
 
     def campaign(self):
@@ -187,8 +254,9 @@ class EnemyGroup:
         else:
             self.campaign_count += 1
 
-    def add(self, num):
-        self.__reserved_members = [Enemy() for _ in range(num)]
+    def add(self, num, model):
+        if model.entower_hp > 0 and model.entower_hp > 0:
+            self.__reserved_members = [Enemy(self.point) for _ in range(num)]
 
     def get(self):
         return self.expedition
