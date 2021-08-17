@@ -1,5 +1,5 @@
-from game.game import pre_game
+from start_menu import StartMenu
 
 if __name__ == '__main__':
-    m = pre_game()
+    m = StartMenu()
     m.run()

@@ -1,55 +1,94 @@
 import pygame
 import math
 import os
-from settings import hero_PATH, en_BASE,IMAGE_PATH,SOUND_PATH
+from settings import hero_PATH, en_BASE, IMAGE_PATH, SOUND_PATH
 from color_settings import *
 #import random
 
 # pygame.init()
 HOWHOW_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "1.png")), (60, 90)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "2.png")), (60, 90)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "3.png")), (60, 90)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "4.png")), (60, 90)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "5.png")), (60, 90)),
+                pygame.transform.scale(pygame.image.load(
+                    os.path.join(IMAGE_PATH, "2.png")), (60, 90)),
+                pygame.transform.scale(pygame.image.load(
+                    os.path.join(IMAGE_PATH, "3.png")), (60, 90)),
+                pygame.transform.scale(pygame.image.load(
+                    os.path.join(IMAGE_PATH, "4.png")), (60, 90)),
+                pygame.transform.scale(pygame.image.load(
+                    os.path.join(IMAGE_PATH, "5.png")), (60, 90)),
                 pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "6.png")), (60, 90))]
-                
+
 
 GODTONE_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "tone1.png")), (100, 150)),
-                 pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "tone2.png")), (100, 150)),
-                 pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "tone3.png")), (100, 150)),
-                 pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "tone4.png")), (100, 150)),
+                 pygame.transform.scale(pygame.image.load(
+                     os.path.join(IMAGE_PATH, "tone2.png")), (100, 150)),
+                 pygame.transform.scale(pygame.image.load(
+                     os.path.join(IMAGE_PATH, "tone3.png")), (100, 150)),
+                 pygame.transform.scale(pygame.image.load(
+                     os.path.join(IMAGE_PATH, "tone4.png")), (100, 150)),
                  pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "tone5.png")), (100, 150))]
-                
-P_IMAGE =      [pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p1.png")), (70, 120)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p2.png")), (70, 120)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p3.png")), (70, 120)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p4.png")), (70, 120)),
-                pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p5.png")), (70, 120))]
-                
+
+P_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p1.png")), (70, 120)),
+           pygame.transform.scale(pygame.image.load(
+               os.path.join(IMAGE_PATH, "p2.png")), (70, 120)),
+           pygame.transform.scale(pygame.image.load(
+               os.path.join(IMAGE_PATH, "p3.png")), (70, 120)),
+           pygame.transform.scale(pygame.image.load(
+               os.path.join(IMAGE_PATH, "p4.png")), (70, 120)),
+           pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "p5.png")), (70, 120))]
+
+BRIAN_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "brian1.png")), (50, 100)),
+               pygame.transform.scale(pygame.image.load(
+                   os.path.join(IMAGE_PATH, "brian2.png")), (50, 100)),
+               pygame.transform.scale(pygame.image.load(
+                   os.path.join(IMAGE_PATH, "brian3.png")), (50, 100)),
+               pygame.transform.scale(pygame.image.load(
+                   os.path.join(IMAGE_PATH, "brian4.png")), (50, 100)),
+               pygame.transform.scale(pygame.image.load(
+                   os.path.join(IMAGE_PATH, "brian5.png")), (50, 100)),
+               pygame.transform.scale(pygame.image.load(os.path.join(IMAGE_PATH, "brian6.png")), (50, 100))]
+
+HOWHOW_PUNCH_IMAGE = pygame.transform.scale(
+    pygame.image.load(os.path.join(IMAGE_PATH, "punch.png")), (50, 50))
+GODTONE_PUNCH_IMAGE = pygame.transform.scale(
+    pygame.image.load(os.path.join(IMAGE_PATH, "punch2.png")), (50, 50))
+P_PUNCH_IMAGE = pygame.transform.scale(
+    pygame.image.load(os.path.join(IMAGE_PATH, "targeting.png")), (50, 50))
+BRIAN_PUNCH_IMAGE = pygame.transform.scale(
+    pygame.image.load(os.path.join(IMAGE_PATH, "explosion.png")), (50, 50))
 
 
 class Hero:
-    def __init__(self, herotype):
+    def __init__(self, herotype, herolevel):
         self.hero_type = herotype
+        self.herolevel = herolevel
         self.path = hero_PATH
         self.path_index = 0
         self.move_count = 0
+        self.upgrade = [1, 1.15, 1.3, 1.5]
         self.stride = self.move_speed(self.hero_type)
-        if self.hero_type == 'howhow':    
+        if self.hero_type == 'howhow':
             self.image = self.hero_image(self.hero_type)[0]
-        elif self.hero_type == 'godtone' :
+        elif self.hero_type == 'godtone':
             self.image = self.hero_image(self.hero_type)[0]
-        elif self.hero_type == 'p' :
-            self.image = self.hero_image(self.hero_type)[0] 
+        elif self.hero_type == 'p':
+            self.image = self.hero_image(self.hero_type)[0]
+        elif self.hero_type == 'brian':
+            self.image = self.hero_image(self.hero_type)[0]
         self.rect = self.image.get_rect()
         self.rect.center = self.path[self.path_index]
         self.health = self.hero_hp_maxhp(self.hero_type)
-        self.max_health = self.hero_hp_maxhp(self.hero_type)
+        self.max_health = self.hero_hp_maxhp(
+            self.hero_type) * self.upgrade[self.herolevel]
         self.attack_count = 0
         self.attack_max_count = self.attack_max_cd(self.hero_type)
-        self.power = self.hero_power(self.hero_type)
+        self.power = self.hero_power(
+            self.hero_type) * self.upgrade[self.herolevel]
         self.range = self.attack_range(self.hero_type)
         self.attack_music = self.hero_attacksound(self.hero_type)
+        self.attack_light = 0
+        self.attack_image = self.hero_attack_image(self.hero_type)
+        self.attack_location_x = self.hero_attack_loactionx(self.hero_type)
+        self.draw_atk_counter = 100
 
     def move(self):
         x1, y1 = self.path[self.path_index]
@@ -69,14 +108,20 @@ class Hero:
         else:
             self.move_count = 0
             self.rect.center = self.path[self.path_index]
-            
-        if self.hero_type == 'howhow':    
-            self.image = self.hero_image(self.hero_type)[self.move_count//6 % 6]
-        elif self.hero_type == 'godtone' :
-            self.image = self.hero_image(self.hero_type)[self.move_count//8 % 5]
-        elif self.hero_type == 'p' :
-            self.image = self.hero_image(self.hero_type)[self.move_count//8 % 5]     
-    
+
+        if self.hero_type == 'howhow':
+            self.image = self.hero_image(self.hero_type)[
+                self.move_count//6 % 6]
+        elif self.hero_type == 'godtone':
+            self.image = self.hero_image(self.hero_type)[
+                self.move_count//8 % 5]
+        elif self.hero_type == 'p':
+            self.image = self.hero_image(self.hero_type)[
+                self.move_count//8 % 5]
+        elif self.hero_type == 'brian':
+            self.image = self.hero_image(self.hero_type)[
+                self.move_count//6 % 6]
+
     def attack(self):
         if(self.attack_count < self.attack_max_count):
             self.attack_count += 1
@@ -86,7 +131,7 @@ class Hero:
             self.attack_music.set_volume(0.8)
             pygame.mixer.Channel(1).play(self.attack_music)
             return True
-        
+
     # 不同英雄的圖片
     def hero_image(self, herotype):
         if(herotype == 'howhow'):
@@ -95,16 +140,42 @@ class Hero:
             return GODTONE_IMAGE
         elif(herotype == 'p'):
             return P_IMAGE
-        
+        elif(herotype == 'brian'):
+            return BRIAN_IMAGE
+    # 攻擊圖
+
+    def hero_attack_image(self, herotype):
+        if(herotype == 'howhow'):
+            return HOWHOW_PUNCH_IMAGE
+        elif(herotype == 'godtone'):
+            return GODTONE_PUNCH_IMAGE
+        elif(herotype == 'p'):
+            return P_PUNCH_IMAGE
+        elif(herotype == 'brian'):
+            return BRIAN_PUNCH_IMAGE
+
+    # 攻擊圖的x偏差
+    def hero_attack_loactionx(self, herotype):
+        if(herotype == 'howhow'):
+            return 75
+        elif(herotype == 'godtone'):
+            return 75
+        elif(herotype == 'p'):
+            return 195
+        elif(herotype == 'brian'):
+            return 75
+
     # 攻擊聲音
     def hero_attacksound(self, herotype):
         if(herotype == 'howhow'):
-            return pygame.mixer.Sound(os.path.join(SOUND_PATH,"punch2.wav"))
+            return pygame.mixer.Sound(os.path.join(SOUND_PATH, "punch2.wav"))
         elif(herotype == 'godtone'):
-            return pygame.mixer.Sound(os.path.join(SOUND_PATH,"punch3.wav"))
+            return pygame.mixer.Sound(os.path.join(SOUND_PATH, "punch3.wav"))
         elif(herotype == 'p'):
-            return pygame.mixer.Sound(os.path.join(SOUND_PATH,"longshot.mp3"))
-        
+            return pygame.mixer.Sound(os.path.join(SOUND_PATH, "longshot.mp3"))
+        elif(herotype == 'brian'):
+            return pygame.mixer.Sound(os.path.join(SOUND_PATH, "briansound.wav"))
+
     # 最大血量
     def hero_hp_maxhp(self, herotype):
         if(herotype == 'howhow'):
@@ -113,9 +184,11 @@ class Hero:
             return 30
         elif(herotype == 'p'):
             return 10
-        
-        
-    # 攻擊力    
+        elif(herotype == 'brian'):
+            return 1
+
+    # 攻擊力
+
     def hero_power(self, herotype):
         if(herotype == 'howhow'):
             return 3
@@ -123,9 +196,11 @@ class Hero:
             return 2
         elif(herotype == 'p'):
             return 7
-        
-        
-    # 移動速度    
+        elif(herotype == 'brian'):
+            return 7
+
+    # 移動速度
+
     def move_speed(self, herotype):
         if(herotype == 'howhow'):
             return 1.5
@@ -133,9 +208,11 @@ class Hero:
             return 1
         elif(herotype == 'p'):
             return 0.6
-        
-        
-    # 攻擊最大冷卻    
+        elif(herotype == 'brian'):
+            return 2
+
+    # 攻擊最大冷卻
+
     def attack_max_cd(self, herotype):
         if(herotype == 'howhow'):
             return 60
@@ -143,19 +220,21 @@ class Hero:
             return 60
         elif(herotype == 'p'):
             return 100
-        
-        
+        elif(herotype == 'brian'):
+            return 20
+
     # 要不要攻擊
-    def attack(self):
+    def attack(self, model):
         if(self.attack_count < self.attack_max_count):
             self.attack_count += 1
             return False
         else:
-            self.attack_count = 0
-            self.attack_music.set_volume(0.5)
-            pygame.mixer.Channel(1).play(self.attack_music)
-            return True
-   
+            if model.entower_hp > 0 and model.mytower_hp > 0:
+                self.attack_count = 0
+                self.attack_music.set_volume(0.5)
+                pygame.mixer.Channel(1).play(self.attack_music)
+                return True
+
     # 攻擊距離
     def attack_range(self, herotype):
         if(herotype == 'howhow'):
@@ -164,6 +243,9 @@ class Hero:
             return 60
         elif(herotype == 'p'):
             return 180
+        elif(herotype == 'brian'):
+            return 60
+
 
 class HeroGroup:
     def __init__(self):
@@ -177,54 +259,80 @@ class HeroGroup:
         if distance <= hero.range:
             return True
         return False
-    
+
     def he_to_base_range(self, hero):
         x1, y1 = hero.rect.center
         x2, y2 = en_BASE.center
-        distance = math.sqrt((x2 - x1) ** 2 )
+        distance = math.sqrt((x2 - x1) ** 2)
         if distance <= hero.range:
             return True
         return False
-    
+
     def advance(self, model):
         self.sort_list()
         for hero in self.expedition:
             if hero.health <= 0:
                 self.retreat(hero)
-            if self.he_to_base_range(hero) :
-                if(hero.attack()) and model.entower_hp > 0:
+
+            if self.he_to_base_range(hero):
+                if hero.attack(model) and model.entower_hp > 0:
+                    hero.attack_light = 1
                     model.entower_hp -= hero.power
-                elif model.entower_hp < 0:
+                    if hero.hero_type == "brian":
+                        self.retreat(hero)
+                elif model.entower_hp <= 0:
                     model.entower_hp = 0
+                    hero.attack_light = 0
+                else:
+                    hero.attack_light = 0
+                if hero.hero_type == "brian":
+                    self.retreat(hero)
+
             elif model.en.expedition:
                 for en in model.en.expedition:
-                    if self.he_to_en_range(hero, en):
-                        if(hero.attack()):
+                    # 自爆範圍攻擊
+                    if self.he_to_en_range(hero, en) and hero.hero_type == "brian":
+                        if(hero.attack(model)):
+                            self.retreat(hero)
                             en.health -= hero.power
+                            hero.attack_light = 1
+                        else:
+                            hero.attack_light = 0
+                            break
+                    # 單體攻擊
+                    elif self.he_to_en_range(hero, en):
+                        if(hero.attack(model)):
+                            en.health -= hero.power
+                            hero.attack_light = 1
                             break
                         else:
+                            hero.attack_light = 0
                             break
                     else:
+                        hero.attack_light = 0
                         hero.move()
                         break
             else:
+                hero.attack_light = 0
                 hero.move()
-                              
+
     def sort_list(self):
         for i in range(1, len(self.expedition)):
             if(self.expedition[i].rect.centerx < self.expedition[0].rect.centerx):
                 temp = self.expedition[0]
-                self.expedition[0] = self.expedition[i] 
+                self.expedition[0] = self.expedition[i]
                 self.expedition[i] = temp
 
-    def add(self, herotype):
+    def add(self, herotype, herolevel):
         """Generate the enemies for next wave"""
         if herotype == 'howhow':
-            self.expedition.append(Hero('howhow'))
+            self.expedition.append(Hero('howhow', herolevel))
         elif herotype == 'godtone':
-            self.expedition.append(Hero('godtone'))
+            self.expedition.append(Hero('godtone', herolevel))
         elif herotype == 'p':
-            self.expedition.append(Hero('p'))
+            self.expedition.append(Hero('p', herolevel))
+        elif herotype == 'brian':
+            self.expedition.append(Hero('brian', herolevel))
 
     def get(self):
         """Get the enemy list"""
@@ -237,6 +345,3 @@ class HeroGroup:
     def retreat(self, hero):
         """Remove the enemy from the expedition"""
         self.expedition.remove(hero)
-        
-    
-        

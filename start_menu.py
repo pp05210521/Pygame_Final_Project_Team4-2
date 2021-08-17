@@ -1,7 +1,10 @@
 import pygame
 import os
 from color_settings import *
-from settings import WIN_WIDTH, WIN_HEIGHT, FPS,IMAGE_PATH,SOUND_PATH
+from settings import WIN_WIDTH, WIN_HEIGHT, FPS, IMAGE_PATH, SOUND_PATH, game_status,music
+# from choose_menu import ChooseMenu
+from user_record.user_record import Input_window
+from button import Buttons
 
 
 pygame.init()
@@ -24,32 +27,54 @@ class StartMenu:
                         self.sound_btn,
                         self.mute_btn]
         # music and sound
-        self.sound = pygame.mixer.Sound(os.path.join(SOUND_PATH,"start.wav"))
+        self.sound = pygame.mixer.Sound(os.path.join(SOUND_PATH, "start.wav"))
+        self.sound.set_volume(0.01)
 
     def play_music(self):
-        pygame.mixer.music.load(os.path.join(SOUND_PATH,"menu1.mp3"))
-        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.load(os.path.join(SOUND_PATH, "menu1.mp3"))
+        pygame.mixer.music.set_volume(0.3)
         pygame.mixer.music.play(-1)
-        self.sound.set_volume(0.5)
+        
+    def play_music_select(self):
+        pygame.mixer.music.load(os.path.join(SOUND_PATH, "level_select.mp3"))
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1)
+
+    def run(self):
+        self.play_music()
+        pygame.display.set_caption("一日防疫指揮官")
+        clock = pygame.time.Clock()
+        while game_status["run"]:
+            game_status["go_start_menu"] = False
+            clock.tick(FPS)
+            self.menu_win.blit(self.bg, (0, 0))
+            x, y = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_status["run"] = False
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # check if hit start btn
+                    if self.mute_btn.clicked(x, y):
+                        pygame.mixer.music.pause()
+                        music["mute"] = True
+                    elif self.sound_btn.clicked(x, y):
+                        pygame.mixer.music.unpause()
+                        music["mute"] = False
+                    if self.start_btn.clicked(x, y):
+                        pygame.mixer.music.stop()
+                        self.play_music_select()
+                        self.sound.play()
+                        if music["mute"]:
+                            pygame.mixer.music.pause()
+                        i = Input_window(self.menu_win)
+                        i.run()
+
+            for bt in self.buttons:
+                bt.create_frame(x, y)
+                bt.draw_frame(self.menu_win)
+            pygame.display.update()
+        pygame.quit()
 
 
-class Buttons:
-    def __init__(self, x, y, width, height):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.frame = None
 
-    def clicked(self, x: int, y: int) -> bool:
-        if self.rect.collidepoint(x, y):
-            return True
-        return False
-
-    def create_frame(self, x: int, y: int):
-        if self.clicked(x, y):
-            x, y, w, h = self.rect
-            self.frame = pygame.Rect(x - 5, y - 5, w + 10, h + 5)
-        else:
-            self.frame = None
-
-    def draw_frame(self, win):
-        if self.frame is not None:
-            pygame.draw.rect(win, WHITE, self.frame, 5)
