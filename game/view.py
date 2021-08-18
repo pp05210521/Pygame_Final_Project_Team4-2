@@ -4,6 +4,8 @@ from color_settings import *
 import os
 import math
 
+arial = pygame.font.match_font('arial')
+
 # background images
 bg_one = pygame.transform.scale(
     BACKGROUND_IMAGE, (WIN_WIDTH, WIN_HEIGHT))
@@ -174,30 +176,30 @@ class GameView:
         p_btn_rect = p_button_image.get_rect()
         p_btn_rect.center = (355, 550)
         if(p_btn_rect.collidepoint(x, y)):
-            p_data = pygame.Surface((100, 100), pygame.SRCALPHA)
+            p_data = pygame.Surface((110, 100), pygame.SRCALPHA)
             p_data.fill((0, 0, 0, 64))
             self.win.blit(p_data, (310, 390))
 
-            Topic = pygame.font.Font(None, 22)
+            Topic = pygame.font.Font(arial, 22)
             Topic_text = Topic.render("Initial ability", True, WHITE)
-            self.win.blit(Topic_text, (315, 395))
+            self.win.blit(Topic_text, (315, 390))
 
-            HP = pygame.font.Font(None, 20)
+            HP = pygame.font.Font(arial, 20)
             HP_text = HP.render(" HP = 10", True, WHITE)
-            self.win.blit(HP_text, (310, 415))
+            self.win.blit(HP_text, (310, 410))
 
-            Power = pygame.font.Font(None, 20)
+            Power = pygame.font.Font(arial, 20)
             Power_text = Power.render(" Power = 7", True, WHITE)
-            self.win.blit(Power_text, (310, 435))
+            self.win.blit(Power_text, (310, 430))
 
-            Attack_range = pygame.font.Font(None, 20)
+            Attack_range = pygame.font.Font(arial, 20)
             Attack_range_text = Attack_range.render(
                 " Range = 180", True, WHITE)
-            self.win.blit(Attack_range_text, (310, 455))
+            self.win.blit(Attack_range_text, (310, 450))
 
-            Cost = pygame.font.Font(None, 20)
+            Cost = pygame.font.Font(arial, 20)
             Cost_text = Cost.render(" Cost = 200", True, WHITE)
-            self.win.blit(Cost_text, (310, 475))
+            self.win.blit(Cost_text, (310, 470))
 
     def draw_data_howhow(self):
         x, y = pygame.mouse.get_pos()
@@ -208,65 +210,65 @@ class GameView:
             howhow_data.fill((0, 0, 0, 64))
             self.win.blit(howhow_data, (550, 390))
 
-            Topic = pygame.font.Font(None, 22)
+            Topic = pygame.font.Font(arial, 22)
             Topic_text = Topic.render("Initial ability", True, WHITE)
-            self.win.blit(Topic_text, (555, 395))
+            self.win.blit(Topic_text, (555, 390))
 
-            HP = pygame.font.Font(None, 20)
+            HP = pygame.font.Font(arial, 20)
             HP_text = HP.render(" HP = 15", True, WHITE)
-            self.win.blit(HP_text, (550, 415))
+            self.win.blit(HP_text, (550, 410))
 
-            Power = pygame.font.Font(None, 20)
+            Power = pygame.font.Font(arial, 20)
             Power_text = Power.render(" Power = 3", True, WHITE)
-            self.win.blit(Power_text, (550, 435))
+            self.win.blit(Power_text, (550, 430))
 
-            Attack_range = pygame.font.Font(None, 20)
+            Attack_range = pygame.font.Font(arial, 20)
             Attack_range_text = Attack_range.render(" Range = 60", True, WHITE)
-            self.win.blit(Attack_range_text, (550, 455))
+            self.win.blit(Attack_range_text, (550, 450))
 
-            Cost = pygame.font.Font(None, 20)
+            Cost = pygame.font.Font(arial, 20)
             Cost_text = Cost.render(" Cost = 70", True, WHITE)
-            self.win.blit(Cost_text, (550, 475))
+            self.win.blit(Cost_text, (550, 470))
 
     def draw_data_godtone(self):
         x, y = pygame.mouse.get_pos()
         godtone_btn_rect = godtone_button_image.get_rect()
         godtone_btn_rect.center = (475, 550)
         if(godtone_btn_rect.collidepoint(x, y)):
-            godtone_data = pygame.Surface((100, 100), pygame.SRCALPHA)
+            godtone_data = pygame.Surface((100, 95), pygame.SRCALPHA)
             godtone_data.fill((0, 0, 0, 64))
-            self.win.blit(godtone_data, (430, 390))
+            self.win.blit(godtone_data, (430, 395))
 
-            Topic_1 = pygame.font.Font(None, 30)
+            Topic_1 = pygame.font.Font(arial, 30)
             Topic_1_text = Topic_1.render("   I   am    ", True, WHITE)
-            self.win.blit(Topic_1_text, (435, 395))
+            self.win.blit(Topic_1_text, (433, 385))
 
-            Topic_2 = pygame.font.Font(None, 30)
+            Topic_2 = pygame.font.Font(arial, 30)
             Topic_2_text = Topic_2.render("  Toyz's   ", True, RED)
-            self.win.blit(Topic_2_text, (435, 430))
+            self.win.blit(Topic_2_text, (435, 420))
 
-            Topic_3 = pygame.font.Font(None, 30)
+            Topic_3 = pygame.font.Font(arial, 30)
             Topic_3_text = Topic_3.render("    dog   ", True, WHITE)
-            self.win.blit(Topic_3_text, (435, 465))
+            self.win.blit(Topic_3_text, (435, 455))
 
             """
-            Topic = pygame.font.Font(None, 22)
+            Topic = pygame.font.Font(arial, 22)
             Topic_text = Topic.render("Initial ability", True, WHITE)
             self.win.blit(Topic_text, (435, 395))
             
-            HP = pygame.font.Font(None, 20)        
+            HP = pygame.font.Font(arial, 20)        
             HP_text = HP.render(" HP = 30", True, WHITE)
             self.win.blit(HP_text, (430, 415))
             
-            Power = pygame.font.Font(None, 20)        
+            Power = pygame.font.Font(arial, 20)        
             Power_text = Power.render(" Power = 2", True, WHITE)
             self.win.blit(Power_text, (430, 435))
            
-            Attack_range = pygame.font.Font(None, 20)        
+            Attack_range = pygame.font.Font(arial, 20)        
             Attack_range_text = Attack_range.render(" Range = 60", True, WHITE)
             self.win.blit(Attack_range_text, (430, 455))
             
-            Cost = pygame.font.Font(None, 20)        
+            Cost = pygame.font.Font(arial, 20)        
             Cost_text = Cost.render(" Cost = 50", True, WHITE)
             self.win.blit(Cost_text, (550, 475))
             """
@@ -276,49 +278,49 @@ class GameView:
         brian_btn_rect = brian_button_image.get_rect()
         brian_btn_rect.center = (235, 550)
         if(brian_btn_rect.collidepoint(x, y)):
-            brian_data = pygame.Surface((170, 100), pygame.SRCALPHA)
+            brian_data = pygame.Surface((220, 100), pygame.SRCALPHA)
             brian_data.fill((0, 0, 0, 64))
             self.win.blit(brian_data, (190, 390))
 
-            Topic = pygame.font.Font(None, 22)
+            Topic = pygame.font.Font(arial, 22)
             Topic_text = Topic.render(
-                " Unlock after checkpoint 1.", True, WHITE)
-            self.win.blit(Topic_text, (195, 395))
+                " Unlock after checkpoint 1", True, WHITE)
+            self.win.blit(Topic_text, (195, 390))
 
-            HP = pygame.font.Font(None, 20)
+            HP = pygame.font.Font(arial, 20)
             HP_text = HP.render(" HP = 1, attack then die", True, WHITE)
-            self.win.blit(HP_text, (195, 415))
+            self.win.blit(HP_text, (195, 410))
 
-            Power = pygame.font.Font(None, 20)
+            Power = pygame.font.Font(arial, 20)
             Power_text = Power.render(" Power = 7, AOE", True, WHITE)
-            self.win.blit(Power_text, (195, 435))
+            self.win.blit(Power_text, (195, 430))
 
-            Attack_range = pygame.font.Font(None, 20)
+            Attack_range = pygame.font.Font(arial, 20)
             Attack_range_text = Attack_range.render(" Range = 60", True, WHITE)
-            self.win.blit(Attack_range_text, (195, 455))
+            self.win.blit(Attack_range_text, (195, 450))
 
-            Cost = pygame.font.Font(None, 20)
+            Cost = pygame.font.Font(arial, 20)
             Cost_text = Cost.render(" Cost = 70", True, WHITE)
-            self.win.blit(Cost_text, (195, 475))
+            self.win.blit(Cost_text, (195, 470))
 
     def draw_locked_brian(self):
         x, y = pygame.mouse.get_pos()
         locked_btn_rect = locked_button_image.get_rect()
         locked_btn_rect.center = (235, 550)
         if (locked_btn_rect.collidepoint(x, y)):
-            brian_data = pygame.Surface((150, 100), pygame.SRCALPHA)
+            brian_data = pygame.Surface((155, 100), pygame.SRCALPHA)
             brian_data.fill((0, 0, 0, 64))
             self.win.blit(brian_data, (190, 390))
 
-            Topic_1 = pygame.font.Font(None, 20)
+            Topic_1 = pygame.font.Font(arial, 20)
             Topic_1_text = Topic_1.render(" This hero will", True, WHITE)
             self.win.blit(Topic_1_text, (190, 395))
 
-            Topic_2 = pygame.font.Font(None, 20)
+            Topic_2 = pygame.font.Font(arial, 20)
             Topic_2_text = Topic_2.render(" be unclocked", True, WHITE)
             self.win.blit(Topic_2_text, (190, 430))
 
-            Topic_3 = pygame.font.Font(None, 20)
+            Topic_3 = pygame.font.Font(arial, 20)
             Topic_3_text = Topic_3.render(
                 " in further checkpoint", True, WHITE)
             self.win.blit(Topic_3_text, (190, 465))
@@ -329,14 +331,14 @@ class GameView:
         skill_btn_rect.center = (755, 575)
         if(skill_btn_rect.collidepoint(x, y)):
             skill_data = pygame.Surface((185, 50), pygame.SRCALPHA)
-            skill_data.fill((0, 0, 0, 64))
+            skill_data.fill((0, 0, 0, 128))
             self.win.blit(skill_data, (835, 500))
 
-            Cost = pygame.font.Font(None, 20)
+            Cost = pygame.font.Font(arial, 20)
             Cost_text = Cost.render("Cost = 200", True, WHITE)
             self.win.blit(Cost_text, (840, 505))
 
-            Ability = pygame.font.Font(None, 20)
+            Ability = pygame.font.Font(arial, 20)
             Ability_text = Ability.render("Enemy's hp is halved", True, WHITE)
             self.win.blit(Ability_text, (840, 525))
 
@@ -346,24 +348,24 @@ class GameView:
         upgrade_btn_rect.center = (755, 525)
         if(upgrade_btn_rect.collidepoint(x, y)):
             upgrade_data = pygame.Surface((185, 90), pygame.SRCALPHA)
-            upgrade_data.fill((0, 0, 0, 64))
+            upgrade_data.fill((0, 0, 0, 128))
             self.win.blit(upgrade_data, (835, 500))
 
-            Initial = pygame.font.Font(None, 20)
+            Initial = pygame.font.Font(arial, 20)
             Initial_text = Initial.render("Initial level = 0", True, WHITE)
             self.win.blit(Initial_text, (840, 505))
 
-            Max = pygame.font.Font(None, 20)
+            Max = pygame.font.Font(arial, 20)
             Max_text = Max.render("Max level = 3", True, WHITE)
             self.win.blit(Max_text, (840, 525))
 
-            Cost = pygame.font.Font(None, 20)
+            Cost = pygame.font.Font(arial, 20)
             Cost_text = Cost.render("Cost = 100,150,200", True, WHITE)
             self.win.blit(Cost_text, (840, 545))
 
-            Upgrade_mul = pygame.font.Font(None, 20)
+            Upgrade_mul = pygame.font.Font(arial, 20)
             Upgrade_mul_text = Upgrade_mul.render(
-                "Hero's power and hp * 1.15", True, WHITE)
+                "power and hp * 1.15", True, WHITE)
             self.win.blit(Upgrade_mul_text, (840, 565))
 
     def draw_menu(self, menu):
@@ -395,9 +397,9 @@ class GameView:
 
     def draw_money(self, money: int):
         self.win.blit(MONEY_IMAGE, (15, 32))
-        Money = pygame.font.Font(None, 40)
+        Money = pygame.font.Font(arial, 40)
         Money_text = Money.render(f"{money}", True, WHITE)
-        self.win.blit(Money_text, (120, 50))
+        self.win.blit(Money_text, (120, 40))
 
     def draw_mytower_hp(self, lives, max_lives):
         # draw_lives
@@ -419,7 +421,7 @@ class GameView:
         transparency = 180
         pygame.draw.rect(transparent_surface,
                          (0, 0, 0, transparency), [0, 0, 1024, 600], 0)
-        over = pygame.font.Font(None, 30)
+        over = pygame.font.Font(arial, 30)
         game_over_text = over.render("click to continue...", True, WHITE)
         self.win.blit(transparent_surface, (0, 0))
         self.win.blit(game_over_text, (830, 560))
@@ -431,7 +433,7 @@ class GameView:
         transparency = 180
         pygame.draw.rect(transparent_surface,
                          (0, 0, 0, transparency), [0, 0, 1024, 600], 0)
-        over = pygame.font.Font(None, 30)
+        over = pygame.font.Font(arial, 30)
         game_win_text = over.render("click to continue...", True, WHITE)
         self.win.blit(transparent_surface, (0, 0))
         self.win.blit(game_win_text, (830, 560))
@@ -464,9 +466,9 @@ class GameView:
         transparency = 180
         pygame.draw.rect(transparent_surface, (8, 46, 87,
                                                transparency), [0, 0, 1024, 600], 0)
-        over = pygame.font.Font(None, 30)
-        complete = pygame.font.Font(None, 80)
-        text = pygame.font.Font(None, 40)
+        over = pygame.font.Font(arial, 30)
+        complete = pygame.font.Font(arial, 80)
+        text = pygame.font.Font(arial, 40)
         game_win_text = over.render("click to back to menu", True, WHITE)
         game_finish_text = text.render(
             "now you can try to use less time!", True, WHITE)
@@ -478,6 +480,6 @@ class GameView:
         self.win.blit(game_completed_image, (262, 150))
 
     def draw_game_time(self, time):
-        timer = pygame.font.Font(None, 30)
+        timer = pygame.font.Font(arial, 30)
         time_text = timer.render(f"Time: {time}", True, WHITE)
-        self.win.blit(time_text, (WIN_WIDTH-130, WIN_HEIGHT-30))
+        self.win.blit(time_text, (WIN_WIDTH-180, WIN_HEIGHT-65))

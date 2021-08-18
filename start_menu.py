@@ -1,7 +1,7 @@
 import pygame
 import os
 from color_settings import *
-from settings import WIN_WIDTH, WIN_HEIGHT, FPS, IMAGE_PATH, SOUND_PATH, game_status,music
+from settings import WIN_WIDTH, WIN_HEIGHT, FPS, IMAGE_PATH, SOUND_PATH, game_status, music
 # from choose_menu import ChooseMenu
 from user_record.user_record import Input_window
 from button import Buttons

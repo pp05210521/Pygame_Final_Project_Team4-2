@@ -4,7 +4,7 @@ from enemy.enemies import EnemyGroup
 from hero import HeroGroup
 from menu.menus import MainMenu
 from game.user_request import RequestSubject, EnemyGenerator, Muse, Music, Hero_howhow, Hero_godtone, Hero_p, Hero_brian, Special, Upgrade
-from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE, BACKGROUND_IMAGE_two, BACKGROUND_IMAGE_three, user_info, RECORD_PATH
+from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE, BACKGROUND_IMAGE_two, BACKGROUND_IMAGE_three, user_info, RECORD_PATH, SOUND_PATH
 from hero import HeroGroup
 
 
@@ -38,7 +38,7 @@ class GameModel:
         self.entower_max_hp = self.en_and_our_tower_hp(self.checkpoint)
         self.entower_hp = self.entower_max_hp
         self.sound = pygame.mixer.Sound(
-            os.path.join("sound", "start.wav")).set_volume(0.1)
+            os.path.join(SOUND_PATH, "start.wav")).set_volume(0.1)
         self.money_cd = 0
         self.money_max_cd = 5
         self.skill_animation = False

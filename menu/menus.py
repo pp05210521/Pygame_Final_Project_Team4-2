@@ -36,18 +36,6 @@ class Button:
         return self.name
 
 
-class Menu:
-    def __init__(self, x: int, y: int):
-        self.image = MENU_IMAGE
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
-        self._buttons = []
-
-    @property
-    def buttons(self):
-        return self._buttons
-
-
 class MainMenu:
     def __init__(self):
         self._buttons = [Button(p_button_image, "p", 355, 550),
