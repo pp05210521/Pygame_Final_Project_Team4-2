@@ -6,9 +6,9 @@ from settings import IMAGE_PATH, FPS, WIN_WIDTH, WIN_HEIGHT, RECORD_PATH, COLOR_
 from button import Buttons
 from color_settings import *
 
-
-FONT_BIG = pygame.font.Font(None, 50)
-FONT_SMALL = pygame.font.Font(None, 35)
+arial=pygame.font.match_font('arial')
+FONT_BIG = pygame.font.Font(arial, 50)
+FONT_SMALL = pygame.font.Font(arial, 35)
 
 
 def show_player(which: int) -> list:
@@ -43,7 +43,7 @@ def show_player(which: int) -> list:
 
 def draw_text(screen, text, x, y, size: int):
     '''畫布/文字/座標/字體大小'''
-    FONT = pygame.font.Font(None, size)
+    FONT = pygame.font.Font(arial, size)
     txt_surface = FONT.render(str(text), True, WHITE)
     screen.blit(txt_surface, (x, y))
 
